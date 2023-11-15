@@ -1,0 +1,68 @@
+﻿@model List<WarrantyListVM>
+@{
+    ViewData["Title"] = "WarrantyList";
+    Layout = "~/Areas/SuperAdmin/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h5 class="card-title">Záruční lhůty</h5>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-area="SuperAdmin" asp-controller="Dashboard" asp-action="Index">Dashboard</a></li>
+            <li class="breadcrumb-item active"><a asp-area="SuperAdmin" asp-controller="Warranty" asp-action="WarrantyList">Záruční lhůty</a></li>
+        </ol>
+    </nav>
+</div>
+
+
+<div class="d-grid gap-2 mt-2 mb-2">
+    <a asp-area="SuperAdmin" asp-controller="Warranty" asp-action="CreateWarranty" class="btn btn-success btn-sm px-2"><i class="bi bi-plus-lg"></i></a>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <!-- Table with hoverable rows -->
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th class="text-center" scope="col">Název</th>
+                    <th class="text-center" scope="col">Vytvořeno</th>
+                    <th class="text-center" scope="col">Editováno</th>
+                    <th class="text-center" scope="col">Aktivní/neaktivní</th>
+                    <th class="text-center" scope="col">Akce</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="text-center">@item.Title</td>
+                        <td class="text-center">@item.CreateDate</td>
+                        <td class="text-center">@item.UpdateDate</td>
+                        @if (item.IsActive == false)
+                        {
+                            <td class="text-center">
+                                <div class="btn btn-danger btn-sm">
+                                    <i class="bi bi-x"></i>
+                                </div>
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="text-center">
+                                <div class="btn btn-success btn-sm">
+                                    <i class="bi bi-check-lg"></i>
+                                </div>
+                            </td>
+                        }
+                        <td class="text-center">
+                            <a asp-area="SuperAdmin" asp-controller="Warranty" asp-action="EditWarranty" asp-route-id="@item.Id" data-id="@item.Id" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
+                            <a asp-area="SuperAdmin" asp-controller="Warranty" asp-action="DeleteWarranty" asp-route-id="@item.Id" data-id="@item.Id" class="btn btn-danger btn-sm"><i class="bi bi-trash3-fill"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <!-- End Table with hoverable rows -->
+    </div>
+</div>
