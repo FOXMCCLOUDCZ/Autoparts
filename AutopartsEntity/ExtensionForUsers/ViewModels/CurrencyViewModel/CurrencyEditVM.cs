@@ -3,7 +3,7 @@
     public class CurrencyEditVM
     {
         public int Id { get; set; }
-        public string? UpdateDate { get; set; }
+        public string? UpdateDate { get; set; } = DateTime.Now.ToString("d");
         public byte[] RowVersion { get; set; } = null!;
 
         public int NumericCurrencyCode { get; set; }

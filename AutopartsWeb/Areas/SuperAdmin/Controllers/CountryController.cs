@@ -2,7 +2,6 @@
 using AutopartsService.Services.ExtensionForUsers.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Drawing.Text;
 
 namespace AutopartsWeb.Areas.SuperAdmin.Controllers
 {
@@ -10,10 +9,7 @@ namespace AutopartsWeb.Areas.SuperAdmin.Controllers
     public class CountryController : Controller
     {
         private readonly ICountryService _countryService;
-        // test
         private readonly ICurrencyService _currencyService;
-
-        public SelectList CurrencyTest;
 
         public CountryController(ICountryService countryService, ICurrencyService currencyService)
         {
@@ -21,19 +17,22 @@ namespace AutopartsWeb.Areas.SuperAdmin.Controllers
             _currencyService = currencyService;
         }
 
+        private SelectList GetActiveCurrencies()
+        {
+            var allCurrencies = _currencyService.AllListAsync().Result; // Předpokládám, že AllListAsync je metoda, která vrací Task<List<Currency>>, takže použijeme .Result
+            var activeCurrencies = allCurrencies.Where(c => c.IsActive).ToList();
+            return new SelectList(activeCurrencies, "Id", "CurrencyName");
+        }
+
         public async Task<IActionResult> CountryList()
         {
             var countryList = await _countryService.AllListAsync();
-
             return View(countryList);
         }
 
-        [HttpGet]
         public async Task<IActionResult> CreateCountry()
         {
-            //ViewData["Currency"] = await _currencyService.AllListAsync();
-            CurrencyTest = new SelectList(await _currencyService.AllListAsync(), "Id", "CurrencyName");
-            ViewData["Currency"] = CurrencyTest;
+            ViewData["Currency"] = GetActiveCurrencies();
             return View();
         }
 
@@ -44,10 +43,10 @@ namespace AutopartsWeb.Areas.SuperAdmin.Controllers
             return RedirectToAction("CountryList", "Country", new { Area = ("SuperAdmin") });
         }
 
-        [HttpGet]
         public async Task<IActionResult> EditCountry(int id)
         {
             var country = await _countryService.GetCountryById(id);
+            ViewData["Currency"] = GetActiveCurrencies();
             return View(country);
         }
 
