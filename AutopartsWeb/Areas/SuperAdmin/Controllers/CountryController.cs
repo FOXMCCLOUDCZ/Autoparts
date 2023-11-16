@@ -19,8 +19,8 @@ namespace AutopartsWeb.Areas.SuperAdmin.Controllers
 
         private SelectList GetActiveCurrencies()
         {
-            var allCurrencies = _currencyService.AllListAsync().Result; // Předpokládám, že AllListAsync je metoda, která vrací Task<List<Currency>>, takže použijeme .Result
-            var activeCurrencies = allCurrencies.Where(c => c.IsActive).ToList();
+            var allCurrencies = _currencyService.AllListAsync().Result;
+            var activeCurrencies = allCurrencies.Where(cu => cu.IsActive).ToList();
             return new SelectList(activeCurrencies, "Id", "CurrencyName");
         }
 
@@ -30,6 +30,7 @@ namespace AutopartsWeb.Areas.SuperAdmin.Controllers
             return View(countryList);
         }
 
+        [HttpGet]
         public async Task<IActionResult> CreateCountry()
         {
             ViewData["Currency"] = GetActiveCurrencies();
@@ -43,6 +44,7 @@ namespace AutopartsWeb.Areas.SuperAdmin.Controllers
             return RedirectToAction("CountryList", "Country", new { Area = ("SuperAdmin") });
         }
 
+        [HttpGet]
         public async Task<IActionResult> EditCountry(int id)
         {
             var country = await _countryService.GetCountryById(id);

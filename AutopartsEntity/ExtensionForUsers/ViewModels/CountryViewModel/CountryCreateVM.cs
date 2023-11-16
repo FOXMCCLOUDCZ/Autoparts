@@ -12,6 +12,6 @@ namespace AutopartsEntity.ExtensionForUsers.ViewModels.CountryViewModel
         public bool IsActive { get; set; } = false;
 
         public int CurrencyId { get; set; }
-        public CurrencyListVM Currency { get; set; } = null!;
+        public CurrencyCreateVM Currency { get; set; } = null!;
     }
 }

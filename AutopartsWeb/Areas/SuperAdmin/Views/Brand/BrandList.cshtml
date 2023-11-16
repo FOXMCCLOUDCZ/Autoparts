@@ -1,22 +1,21 @@
-﻿@model List<WarrantyListVM>
+﻿@model List<BrandListVM>
 @{
-    ViewData["Title"] = "WarrantyList";
+    ViewData["Title"] = "BrandList";
     Layout = "~/Areas/SuperAdmin/Views/Shared/_Layout.cshtml";
 }
 
 <div>
-    <h5 class="card-title">Záruční lhůty</h5>
+    <h5 class="card-title">Země</h5>
     <nav>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a asp-area="SuperAdmin" asp-controller="Dashboard" asp-action="Index">Dashboard</a></li>
-            <li class="breadcrumb-item active"><a asp-area="SuperAdmin" asp-controller="Warranty" asp-action="WarrantyList">Záruční lhůty</a></li>
+            <li class="breadcrumb-item active"><a asp-area="SuperAdmin" asp-controller="Brand" asp-action="BrandList">Brand</a></li>
         </ol>
     </nav>
 </div>
 
-
 <div class="d-grid gap-2 mt-2 mb-2">
-    <a asp-area="SuperAdmin" asp-controller="Warranty" asp-action="CreateWarranty" class="btn btn-success btn-sm px-2"><i class="bi bi-plus-lg"></i></a>
+    <a asp-area="SuperAdmin" asp-controller="Brand" asp-action="CreateBrand" class="btn btn-success btn-sm px-2"><i class="bi bi-plus-lg"></i></a>
 </div>
 
 <div class="card">
@@ -24,7 +23,9 @@
         <table class="table table-hover">
             <thead>
                 <tr>
+                    <th class="text-center" scope="col">TecDoc</th>
                     <th class="text-center" scope="col">Název</th>
+                    <th class="text-center" scope="col">Logo</th>
                     <th class="text-center" scope="col">Vytvořeno</th>
                     <th class="text-center" scope="col">Editováno</th>
                     <th class="text-center" scope="col">Aktivní/neaktivní</th>
@@ -35,7 +36,9 @@
                 @foreach (var item in Model)
                 {
                     <tr>
+                        <td class="text-center">@item.TecDoc</td>
                         <td class="text-center">@item.Title</td>
+                        <td class="text-center">@item.LogoPath</td>
                         <td class="text-center">@item.CreateDate.ToString("d")</td>
                         <td class="text-center">@item.UpdateDate?.ToString("d")</td>
                         @if (item.IsActive == false)
@@ -55,8 +58,21 @@
                             </td>
                         }
                         <td class="text-center">
-                            <a asp-area="SuperAdmin" asp-controller="Warranty" asp-action="EditWarranty" asp-route-id="@item.Id" data-id="@item.Id" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
-                            <a asp-area="SuperAdmin" asp-controller="Warranty" asp-action="DeleteWarranty" asp-route-id="@item.Id" data-id="@item.Id" class="btn btn-danger btn-sm"><i class="bi bi-trash3-fill"></i></a>
+                            <button class="btn btn-primary btn-sm" data-bs-toggle="collapse" data-bs-target="#collapse@(item.Id)"><i class="bi bi-info-lg"></i></button>
+                            <a asp-area="SuperAdmin" asp-controller="Brand" asp-action="EditBrand" asp-route-id="@item.Id" data-id="@item.Id" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
+                            <a asp-area="SuperAdmin" asp-controller="Brand" asp-action="DeleteBrand" asp-route-id="@item.Id" data-id="@item.Id" class="btn btn-danger btn-sm"><i class="bi bi-trash3-fill"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="7" class="p-0">
+                            <div id="collapse@(item.Id)" class="accordion-collapse collapse" aria-labelledby="flush-heading@(item.Id)" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body px-2 py-2">
+                                    <p><strong>Země:</strong> @item.CountryId</p>
+                                    <p><strong>Web:</strong><a href="@item.WebSite"></a> @item.WebSite</p>
+                                    <p><strong>O brandu:</strong></p>
+                                    <p>@item.GeneralInformation</p>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 }

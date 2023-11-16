@@ -137,9 +137,15 @@
                 </a>
                 <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a asp-area="SuperAdmin" asp-controller="Country" asp-action="CountryList">
+                        <a asp-area="SuperAdmin" asp-controller="" asp-action="">
                             <i class="bi bi-circle"></i>
-                            <span>Země</span>
+                            <span>Nový</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-area="SuperAdmin" asp-controller="Brand" asp-action="BrandList">
+                            <i class="bi bi-circle"></i>
+                            <span>Brand</span>
                         </a>
                     </li>
                     <li>
@@ -152,6 +158,12 @@
                         <a asp-area="SuperAdmin" asp-controller="Warranty" asp-action="WarrantyList">
                             <i class="bi bi-circle"></i>
                             <span>Záruční lhůty</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-area="SuperAdmin" asp-controller="Country" asp-action="CountryList">
+                            <i class="bi bi-circle"></i>
+                            <span>Země</span>
                         </a>
                     </li>
                 </ul>

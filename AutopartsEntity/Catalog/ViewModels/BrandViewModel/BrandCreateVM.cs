@@ -1,9 +1,8 @@
-﻿using AutopartsCore.BaseEntities;
-using AutopartsEntity.ExtensionForUsers.Entities;
+﻿using AutopartsEntity.ExtensionForUsers.ViewModels.CountryViewModel;
 
-namespace AutopartsEntity.Catalog.Entities
+namespace AutopartsEntity.Catalog.ViewModels.BrandViewModel
 {
-    public class Brand : BaseEntity
+    public class BrandCreateVM
     {
         public int? TecDoc { get; set; }
         public string Title { get; set; } = null!;
@@ -12,7 +11,7 @@ namespace AutopartsEntity.Catalog.Entities
         public string? GeneralInformation { get; set; }
         public bool IsActive { get; set; } = false;
 
-        public int? CountryId { get; set; }
-        public Country? Country { get; set; } = null!;
+        public int CountryId { get; set; }
+        public CountryCreateVM Country { get; set; } = null!;
     }
 }

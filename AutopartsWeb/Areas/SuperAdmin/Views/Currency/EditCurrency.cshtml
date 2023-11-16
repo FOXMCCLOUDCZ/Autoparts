@@ -17,11 +17,11 @@
 
 <div class="card">
     <div class="card-body mt-3">
-        <!-- Floating Labels Form -->
         <form asp-area="SuperAdmin" asp-controller="Currency" asp-action="EditCurrency" method="post" class="row g-3" enctype="multipart/form-data">
             <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="CreateDate" value="@Model.CreateDate" />
+            <input type="hidden" asp-for="UpdateDate" value="@DateTime.Now" />
             <input type="hidden" asp-for="RowVersion" />
-            <input type="hidden" asp-for="UpdateDate" />
             <div class="col-md-3">
                 <div class="form-floating">
                     <input asp-for="NumericCurrencyCode" type="text" class="form-control" id="floatingName" placeholder="Číselný kód měny">
@@ -51,6 +51,6 @@
                 <button type="submit" class="btn btn-primary">Uložit změny</button>
                 <button type="reset" class="btn btn-secondary">Vrátit změny</button>
             </div>
-        </form><!-- End floating Labels Form -->
+        </form>
     </div>
 </div>

@@ -21,7 +21,6 @@
 
 <div class="card">
     <div class="card-body">
-        <!-- Table with hoverable rows -->
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -47,8 +46,8 @@
                         <td class="text-center">@item.CountryNameCZ</td>
                         <td class="text-center">@item.CountryNameENG</td>
                         <td class="text-center">@item.Currency.CurrencyName</td>
-                        <td class="text-center">@item.CreateDate</td>
-                        <td class="text-center">@item.UpdateDate</td>
+                        <td class="text-center">@item.CreateDate.ToString("d")</td>
+                        <td class="text-center">@item.UpdateDate?.ToString("d")</td>
                         @if (item.IsActive == false)
                         {
                             <td class="text-center">
@@ -73,7 +72,5 @@
                 }
             </tbody>
         </table>
-        <!-- End Table with hoverable rows -->
     </div>
 </div>
-

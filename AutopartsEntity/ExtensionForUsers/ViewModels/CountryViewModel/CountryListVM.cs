@@ -5,8 +5,8 @@ namespace AutopartsEntity.ExtensionForUsers.ViewModels.CountryViewModel
     public class CountryListVM
     {
         public int Id { get; set; }
-        public string CreateDate { get; set; } = DateTime.Now.ToString("d");
-        public string? UpdateDate { get; set; }
+        public DateTime CreateDate { get; set; } = DateTime.Now;
+        public DateTime? UpdateDate { get; set; } = DateTime.Now;
 
         public int NumericCountryCode { get; set; }
         public string ISOAlpha2 { get; set; } = null!;
